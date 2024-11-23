@@ -1,0 +1,17 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  :root {
+    --primary-color: #3a1010;
+    --primary-color-darker: #1d0808;
+    --secondary-color: #342222;
+    --secondary-color-lighter: #1f1414;
+  }
+  
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
