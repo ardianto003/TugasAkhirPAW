@@ -19,7 +19,33 @@ const BookCatalog = () => {
       const res = await fetch(`https://openlibrary.org/search.json?title=${title}`)
       const { docs } = await res.json()
       let books = docs.slice(0, 50)
-      setBooks(books)
+
+      books = books.map((book) => {
+        const id = book.key.split("/")[2]
+        console.log('book', book)
+        
+        return {
+            id: id,
+            title: book.title,
+            cover_id: book.cover_i,
+            author_name: book.author_name,
+            public_rating: book.ratings_average,
+            published_year: book.first_published_year
+        }
+    })
+        console.log('books', books)
+
+      const formattedBooks = []
+      for (let i = 0; i < books.length; i++) {
+        if (books[i]?.cover_id) {
+          formattedBooks.push(books[i])
+        }
+      }
+
+      console.log('formatted books', formattedBooks)
+
+      setBooks(formattedBooks)      
+
     } catch (error) {
       console.error(error)
     } finally {
@@ -58,9 +84,10 @@ const BookCatalog = () => {
         {!isLoading && books.length > 0 && (
           <>
             <div className={classes.books}>
-              {currentItems?.map((book) => (
-                <BookCard key={book.key} book={book} />
-              ))}
+              {currentItems?.map((book) => {
+                console.log(book)
+                return <BookCard key={book.key} book={book} />
+                })}
             </div>
             <Pagination
               setItemOffset={setItemOffset}

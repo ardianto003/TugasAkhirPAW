@@ -10,6 +10,7 @@ import { addBook } from '@/app/redux/cartSlice'
 
 const Details = (ctx) => {
     const id = ctx.params.id
+    console.log('id', id)
     const URL = `https://openlibrary.org/works/${id}.json`
     const dispatch = useDispatch()
     const [book, setBook] = useState({})
@@ -22,8 +23,9 @@ const Details = (ctx) => {
         const fetchDetails = async () => {
             try {
                 const res = await fetch(URL)
+                console.log('res', res)
                 const data = await res.json()
-                console.log(data)
+                console.log('data', data)
 
                 // if book has no pages specified, make them 350 by default
                 let pages = null
@@ -33,8 +35,6 @@ const Details = (ctx) => {
                     pages = 350
                 }
 
-
-
                 const details = {
                     title: data.title,
                     desc: data.description.value,
@@ -43,9 +43,11 @@ const Details = (ctx) => {
                     pages
                 }
 
+                console.log('details', details)
+
                 setBook(details)
             } catch (error) {
-                console.log(error)
+                console.error(error.message)
             }
         }
         fetchDetails()
@@ -76,15 +78,13 @@ const Details = (ctx) => {
         }))
     }
 
-    console.log(book)
-
     return (
         <div className={classes.container}>
             <div className={classes.wrapper}>
                 <div className={classes.bookDetails}>
                     <div className={classes.left}>
                         <Image
-                            src={book?.cover_image}
+                            src={book?.cover_image || ''}
                             height="750"
                             width="350"
                             alt="Book cover"
