@@ -8,26 +8,26 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 export async function POST(request) {
   try {
-    const { paymentMethodId, amount } = await request.json();
+    const { lineItems } = await request.json();
 
-    // Create payment intent with Stripe
-    const paymentIntent = await stripe.paymentIntents.create({
-      amount: amount,
-      currency: "usd",
-      payment_method: paymentMethodId,
-      confirmation_method: "manual",
-      confirm: true,
+    // Create a checkout session with Stripe
+    const session = await stripe.checkout.sessions.create({
+      payment_method_types: ['card'],
+      line_items: lineItems,
+      mode: 'payment',
+      success_url: `${process.env.NEXTAUTH_URL}/success`,
+      cancel_url: `${process.env.NEXTAUTH_URL}/cart`,
     });
 
-    // Return the client secret of the payment intent
-    return new Response(JSON.stringify({ clientSecret: paymentIntent.client_secret }), {
+    // Return the session ID
+    return new Response(JSON.stringify({ id: session.id }), {
       status: 200,
       headers: {
         "Content-Type": "application/json",
       },
     });
   } catch (error) {
-    console.error("Error creating payment intent:", error);
+    console.error("Error creating checkout session:", error);
 
     // Ensure a response is always returned
     return new Response(JSON.stringify({ error: error.message }), {

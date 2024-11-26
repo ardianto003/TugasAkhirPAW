@@ -23,22 +23,37 @@ const Cart = () => {
   };
 
   const handleCheckout = async () => {
+    const lineItems = books.map((book) => {
+      return {
+        price_data: {
+          currency: "usd",
+          product_data: {
+            name: book.title,
+          },
+          unit_amount: book.price * 100, // Price in cents
+        },
+        quantity: book.quantity,
+      };
+    });
+
     const res = await fetch("/api/checkout", {
       headers: {
         "Content-Type": "application/json",
       },
       method: "POST",
-      body: JSON.stringify({
-        paymentMethodId,
-        amount: totalPrice * 100,
-      }),
+      body: JSON.stringify({ lineItems }), // Send lineItems in the request body
     });
 
     const data = await res.json();
 
+    if (data.error) {
+      console.error(data.error); // Log any errors
+      return;
+    }
+
     const stripe = await stripePromise;
 
-    await stripe.redirectToCheckout({ sessionId: data.id });
+    await stripe.redirectToCheckout({ sessionId: data.id }); // Use the session ID returned from the server
   };
 
   const createPaymentMethod = async () => {
@@ -87,7 +102,7 @@ const Cart = () => {
         <div className={classes.right}>
           <div className={classes.totalBookMsg}>Total books: {books?.length}</div>
           <div className={classes.subtotalCheckoutBtns}>
-            <span className={classes.subtotal}>Subtotal: ${totalPrice > 100 ? totalPrice : totalPrice + 5}</span>
+            <span className={classes.subtotal}>Subtotal: ${totalPrice > 100 ? totalPrice : totalPrice}</span>
             <span onClick={handleCheckout} disabled={books?.length === 0} className={classes.orderNowBtn}>
               Order
             </span>
