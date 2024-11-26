@@ -47,7 +47,7 @@ const ReviewModal = ({
         userId: session?.user?._id
       }
 
-      const res = await fetch("https://book-store-ecommerce-git-main-webdevmania.vercel.app/api/review", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/review`, {
         headers,
         method: "POST",
         body: JSON.stringify(body)
@@ -73,7 +73,7 @@ const ReviewModal = ({
         <form onSubmit={handleSubmit}>
           <input type="number" step={0.1} min={1} max={10} onChange={(e) => setRating(e.target.value)} placeholder="8.5" />
           <input type="text" onChange={(e) => setDesc(e.target.value)} placeholder="This book is a pleas...." />
-          <button>
+          <button onClick={handleSubmit}>
             Submit
           </button>
         </form>
