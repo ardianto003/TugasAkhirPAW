@@ -30,7 +30,7 @@ const Cart = () => {
           product_data: {
             name: book.title,
           },
-          unit_amount: book.price * 100, // Price in cents
+          unit_amount: book.price * 100, 
         },
         quantity: book.quantity,
       };
@@ -41,26 +41,23 @@ const Cart = () => {
         "Content-Type": "application/json",
       },
       method: "POST",
-      body: JSON.stringify({ lineItems }), // Send lineItems in the request body
+      body: JSON.stringify({ lineItems }), 
     });
 
     const data = await res.json();
 
     if (data.error) {
-      console.error(data.error); // Log any errors
+      console.error(data.error); 
       return;
     }
 
     const stripe = await stripePromise;
 
-    await stripe.redirectToCheckout({ sessionId: data.id }); // Use the session ID returned from the server
+    await stripe.redirectToCheckout({ sessionId: data.id }); 
   };
 
   const createPaymentMethod = async () => {
-    // Logic to create a payment method using Stripe.js
-    // After creating, set the paymentMethodId state
-    // Example: const { id } = await stripe.createPaymentMethod({ /* payment details */ });
-    // setPaymentMethodId(id);
+    
   };
 
   useEffect(() => {
