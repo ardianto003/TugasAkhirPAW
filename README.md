@@ -19,3 +19,9 @@ Aplikasi GreatReads WebApp adalah platform yang memungkinkan pengguna untuk menc
 - **Stripe**: Layanan pembayaran untuk memproses transaksi secara aman.
 - **Redux**: Manajemen state untuk aplikasi React.
 - **MongoDB**: Database NoSQL untuk menyimpan data pengguna dan buku.
+
+### Link Web
+https://greatreads-id.vercel.app
+
+### Link slide
+https://www.canva.com/design/DAGXkKjtwJ0/qbnlHsk4uEFeoCRinxQ-xQ/edit?utm_content=DAGXkKjtwJ0&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton
