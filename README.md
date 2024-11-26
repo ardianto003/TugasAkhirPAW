@@ -9,8 +9,8 @@
 4. Muhammad Rafa Fadlurahman 20/456848/TK/50672
 5. Rasyid Baskoro Agung 20/456850/TK/50674
 
-### Pengelaman Aplikasi
-Aplikasi BookStore WebApp adalah platform yang memungkinkan pengguna untuk mencari, membeli, dan mengelola buku secara online. Pengguna dapat melihat detail buku, menambahkan buku ke keranjang, dan melakukan pembayaran dengan mudah. Aplikasi ini juga menyediakan fitur untuk menulis dan membaca ulasan buku.
+### Pengenalan Aplikasi
+Aplikasi GreatReads WebApp adalah platform yang memungkinkan pengguna untuk mencari, membeli, dan mengelola buku secara online. Pengguna dapat melihat detail buku, menambahkan buku ke keranjang, dan melakukan pembayaran dengan mudah. Aplikasi ini juga menyediakan fitur untuk menulis dan membaca ulasan buku.
 
 ### Teknologi yang Digunakan
 - **Next.js**: Framework React untuk membangun aplikasi web yang cepat dan efisien.
