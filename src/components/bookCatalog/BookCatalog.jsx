@@ -5,48 +5,73 @@ import Pagination from '../pagination/Pagination'
 import BookCard from '../bookCard/BookCard'
 
 const BookCatalog = () => {
-  const [title, setTitle] = useState("the lord of the rings")
+  const [title, setTitle] = useState("")
   const [books, setBooks] = useState([])
   const [isLoading, setIsLoading] = useState(false)
-  const BASE_URL = `https://openlibrary.org/search.json?title=${title}`
   const [itemOffset, setItemOffset] = useState(0)
-  const itemsPerPage = 3
+  const itemsPerPage = 12
 
-  useEffect(() => {
-    const getData = setTimeout(async () => {
-      try {
-        setIsLoading(true)
-        const res = await fetch(BASE_URL)
-        const { docs } = await res.json()
-        let books = docs.slice(0, 50)
-        console.log(books)
-        setBooks(books)
-      } catch (error) {
-        console.error(error)
-      } finally {
-        setIsLoading(false)
-      }
-    }, 500)
+  const fetchBooks = async () => {
+    if (!title.trim()) return
 
-    return () => clearTimeout(getData)
-  }, [title])
+    try {
+      setIsLoading(true)
+      const res = await fetch(`https://openlibrary.org/search.json?title=${title}`)
+      const { docs } = await res.json()
+      let books = docs.slice(0, 50)
+      setBooks(books)
+    } catch (error) {
+      console.error(error)
+    } finally {
+      setIsLoading(false)
+    }
+  }
 
-  const currentItems = books.slice(itemOffset, itemOffset + itemsPerPage)
+  const handleSubmit = (e) => {
+    e.preventDefault(); // Prevent default form submission
+    fetchBooks(); // Fetch books when the form is submitted
+  }
 
+  const endOffset = itemOffset + itemsPerPage
+  const currentItems = books.slice(itemOffset, endOffset)
+  
   return (
     <div className={classes.container}>
       <div className={classes.wrapper}>
-        <div className={classes.books}>
-          {!isLoading && currentItems?.map((book) => (
-            <BookCard key={book.id} book={book} />
-          ))}
-        </div>
-        {!isLoading && (
-          <Pagination
-            setItemOffset={setItemOffset}
-            itemsPerPage={itemsPerPage}
-            books={books}
+        <form onSubmit={handleSubmit} className={classes.searchSection}>
+          <h1>Book Search</h1>
+          <p>Search millions of books from the Open Library catalog</p>
+          <input 
+            type="text"
+            placeholder="Enter book title..."
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            className={classes.searchInput}
           />
+          <button type="submit" className={classes.submitButton}>Search</button>
+        </form>
+
+        {isLoading && (
+          <div className={classes.loading}>Loading books...</div>
+        )}
+
+        {!isLoading && books.length > 0 && (
+          <>
+            <div className={classes.books}>
+              {currentItems?.map((book) => (
+                <BookCard key={book.key} book={book} />
+              ))}
+            </div>
+            <Pagination
+              setItemOffset={setItemOffset}
+              itemsPerPage={itemsPerPage}
+              books={books}
+            />
+          </>
+        )}
+
+        {!isLoading && title && books.length === 0 && (
+          <div className={classes.noResults}>No books found</div>
         )}
       </div>
     </div>

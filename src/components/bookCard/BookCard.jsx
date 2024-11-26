@@ -6,24 +6,24 @@ import Image from 'next/image'
 const BookCard = ({ book }) => {
   const [imageError, setImageError] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
-  const coverImage = `https://covers.openlibrary.org/b/id/${book.cover_i}-L.jpg`
+  const coverImage = `https://covers.openlibrary.org/b/id/${book.cover_i}-M.jpg`
 
   return (
-    <Link href={`/details/${book.id}`} className={classes.container}>
+    <div className={classes.container}>
       <div className={classes.wrapper}>
         {!imageError ? (
           <Image 
             src={coverImage}
-            alt="book cover"
+            alt={book.title}
             height='275'
             width='175'
             onError={() => setImageError(true)}
             onLoadingComplete={() => setIsLoading(false)}
-            className={isLoading ? classes.loading : ''}
+            className={classes.image}
           />
         ) : (
           <div className={classes.placeholder}>
-            <span>No Image Available</span>
+            <span>No Image</span>
           </div>
         )}
         {isLoading && !imageError && (
@@ -32,7 +32,12 @@ const BookCard = ({ book }) => {
           </div>
         )}
       </div>
-    </Link>
+      <h3 className={classes.title}>{book.title}</h3>
+      {book.author_name && (
+        <p className={classes.author}>{book.author_name[0]}</p>
+      )}
+        <p>id: {book.id}</p>
+    </div>
   )
 }
 
