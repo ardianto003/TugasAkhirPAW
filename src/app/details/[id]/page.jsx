@@ -27,7 +27,7 @@ const Details = (ctx) => {
                 const data = await res.json()
                 console.log('data', data)
 
-                // if book has no pages specified, make them 350 by default
+                
                 let pages = null
                 if (data?.excerpts) {
                     pages = data?.excerpts[0]?.pages
