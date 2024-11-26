@@ -54,8 +54,8 @@ const BookCatalog = () => {
   }
 
   const handleSubmit = (e) => {
-    e.preventDefault(); // Prevent default form submission
-    fetchBooks(); // Fetch books when the form is submitted
+    e.preventDefault(); 
+    fetchBooks(); 
   }
 
   const endOffset = itemOffset + itemsPerPage
