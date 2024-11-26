@@ -11,7 +11,7 @@ const ReviewModal = ({
   const [rating, setRating] = useState(1)
   const [desc, setDesc] = useState("")
 
-  // make escape key close the review modal
+  
   const escapeFunction = useCallback((event) => {
     if (event.key === 'Escape') {
       handleHideModal()
