@@ -20,7 +20,7 @@ async function connect() {
     connection.isConnected = db.connections[0].readyState;
   } catch (error) {
     console.error("Error connecting to MongoDB:", error);
-    // Optionally, you can throw the error or handle it as needed
+    
   }
 }
 
