@@ -24,4 +24,4 @@ Aplikasi GreatReads WebApp adalah platform yang memungkinkan pengguna untuk menc
 https://greatreads-id.vercel.app
 
 ### Link slide
-https://www.canva.com/design/DAGXkKjtwJ0/qbnlHsk4uEFeoCRinxQ-xQ/edit?utm_content=DAGXkKjtwJ0&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton
+https://www.canva.com/design/DAGXkNq6C90/3MWCrxVIaugd6btrPjkJ6Q/edit?utm_content=DAGXkNq6C90&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton
